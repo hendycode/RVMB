@@ -1,142 +1,149 @@
-# Reddit Video Maker Bot 🎥
+# RVMB 🎥
 
-All done WITHOUT video editing or asset compiling. Just pure ✨programming magic✨.
+RVMB (Reddit Video Maker Bot) is an automated tool that turns Reddit threads into short-form videos no video editing or manual asset compiling required. It handles everything from scraping the thread to producing a finished MP4 file ready for upload.
 
-Created by Lewis Menelaws & [TMRRW](https://tmrrwinc.ca)
+---
 
-<a target="_blank" href="https://tmrrwinc.ca">
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://user-images.githubusercontent.com/6053155/170528535-e274dc0b-7972-4b27-af22-637f8c370133.png">
-  <source media="(prefers-color-scheme: light)" srcset="https://user-images.githubusercontent.com/6053155/170528582-cb6671e7-5a2f-4bd4-a048-0e6cfa54f0f7.png">
-  <img src="https://user-images.githubusercontent.com/6053155/170528582-cb6671e7-5a2f-4bd4-a048-0e6cfa54f0f7.png" width="350">
-</picture>
+## What It Does
 
-</a>
+Short-form Reddit content performs extremely well on platforms like TikTok, YouTube Shorts and Instagram Reels. Creating it manually means finding a thread, screenshotting comments, recording a voiceover, and editing everything together which takes time and effort every single time.
 
-## Video Explainer
+RVMB automates the entire process. You point it at a subreddit, it picks a thread, captures screenshots of the post and comments, generates a text-to-speech voiceover, and assembles it all over a background video into a finished MP4. The result is a complete video ready for you to upload wherever you want.
 
-[![lewisthumbnail](https://user-images.githubusercontent.com/6053155/173631669-1d1b14ad-c478-4010-b57d-d79592a789f2.png)
-](https://www.youtube.com/watch?v=3gjcY_00U1w)
+> **Note:** RVMB produces the video file only. Uploading to any platform is done manually by you, keeping full control over what gets posted and when.
 
-## Motivation 🤔
-
-These videos on TikTok, YouTube and Instagram get MILLIONS of views across all platforms and require very little effort.
-The only original thing being done is the editing and gathering of all materials...
-
-... but what if we can automate that process? 🤔
-
-## Disclaimers 🚨
-
-- **At the moment**, this repository won't attempt to upload this content through this bot. It will give you a file that
-  you will then have to upload manually. This is for the sake of avoiding any sort of community guideline issues.
+---
 
 ## Requirements
 
-- Python 3.10
-- Playwright (this should install automatically in installation)
-
-## Installation 👩‍💻
-
-1. Clone this repository:
-    ```sh
-    git clone https://github.com/elebumm/RedditVideoMakerBot.git
-    cd RedditVideoMakerBot
-    ```
-
-2. Create and activate a virtual environment:
-    - On **Windows**:
-        ```sh
-        python -m venv ./venv
-        .\venv\Scripts\activate
-        ```
-    - On **macOS and Linux**:
-        ```sh
-        python3 -m venv ./venv
-        source ./venv/bin/activate
-        ```
-
-3. Install the required dependencies:
-    ```sh
-    pip install -r requirements.txt
-    ```
-
-4. Install Playwright and its dependencies:
-    ```sh
-    python -m playwright install
-    python -m playwright install-deps
-    ```
+- **Python 3.11** other versions may cause dependency issues
+- **FFmpeg** required for video encoding
+- **Playwright** installed automatically during setup, used for browser-based screenshots
 
 ---
 
-**EXPERIMENTAL!!!!**
+## Installation
 
-   - On macOS and Linux (Debian, Arch, Fedora, CentOS, and based on those), you can run an installation script that will automatically install steps 1 to 3. (requires bash)
-   - `bash <(curl -sL https://raw.githubusercontent.com/elebumm/RedditVideoMakerBot/master/install.sh)`
-   - This can also be used to update the installation
+**Step 1 Install Python 3.11**
+
+Download the Python 3.11 installer for Windows and run it. During installation, make sure to tick **"Add Python to PATH"** before clicking Install.
+
+**Step 2 Install FFmpeg**
+
+Download FFmpeg from the official site and add the `ffmpeg/bin` folder to your system PATH. This is required for the final video encoding step.
+
+**Step 3 Install dependencies**
+
+Open the project folder, then double-click **`install.bat`**.
+
+This will install all required Python packages and download the Playwright browser automatically. Wait for it to finish before moving on.
+
+Alternatively, run the following in PowerShell from inside the project folder:
+
+```sh
+py -3.11 -m pip install -r requirements.txt --timeout 120
+py -3.11 -m playwright install chromium
+```
 
 ---
 
-5. Run the bot:
-    ```sh
-    python main.py
-    ```
+## Running the GUI
 
-6. Visit [the Reddit Apps page](https://www.reddit.com/prefs/apps), and set up an app that is a "script". Paste any URL in the redirect URL field, for example: `https://jasoncameron.dev`.
+The GUI is a browser-based control panel that lets you manage settings, browse generated videos, and manage background videos.
 
-7. The bot will prompt you to fill in your details to connect to the Reddit API and configure the bot to your liking.
+Double-click **`start.bat`** to launch it.
 
-8. Enjoy 😎
+Or run manually:
 
-9. If you need to reconfigure the bot, simply open the `config.toml` file and delete the lines that need to be changed. On the next run of the bot, it will help you reconfigure those options.
+```sh
+cd path\to\RVMB
+py -3.11 GUI.py
+```
 
-(Note: If you encounter any errors installing or running the bot, try using `python3` or `pip3` instead of `python` or `pip`.)
+Then open your browser and go to:
 
-For a more detailed guide about the bot, please refer to the [documentation](https://reddit-video-maker-bot.netlify.app/).
+```
+http://localhost:4000
+```
 
-## Video
+---
 
-https://user-images.githubusercontent.com/66544866/173453972-6526e4e6-c6ef-41c5-ab40-5d275e724e7c.mp4
+## Configuration
 
-## Contributing & Ways to improve 📈
+Before generating any videos, go to the **Settings** page in the GUI and fill in the following:
 
-In its current state, this bot does exactly what it needs to do. However, improvements can always be made!
+**Reddit Credentials**
+- Go to `reddit.com/prefs/apps` and create a new app of type **script**
+- Copy the **Client ID** and **Client Secret** into the Settings page
+- Enter your Reddit username and password
 
-I have tried to simplify the code so anyone can read it and start contributing at any skill level. Don't be shy :) contribute!
+**Content Settings**
+- Choose which subreddit to pull posts from (e.g. `AskReddit`)
+- Set minimum comment count, max comment length, and whether to allow NSFW posts
 
-- [ ] Creating better documentation and adding a command line interface.
-- [x] Allowing the user to choose background music for their videos.
-- [x] Allowing users to choose a reddit thread instead of being randomized.
-- [x] Allowing users to choose a background that is picked instead of the Minecraft one.
-- [x] Allowing users to choose between any subreddit.
-- [x] Allowing users to change voice.
-- [x] Checks if a video has already been created
-- [x] Light and Dark modes
-- [x] NSFW post filter
+**Voice Settings**
+- Choose a TTS platform (TikTok, Google Translate, AWS Polly, ElevenLabs, etc.)
+- Select a specific voice and preview it with the play button
 
-Please read our [contributing guidelines](CONTRIBUTING.md) for more detailed information.
+**Background Video**
+- Choose from the available background videos or add your own on the Backgrounds page
 
-### For any questions or support join the [Discord](https://discord.gg/qfQSx45xCV) server
+Click **Save Changes** when done. All settings are stored in `config.toml`.
 
-## Developers and maintainers.
+---
 
-Elebumm (Lewis#6305) - https://github.com/elebumm (Founder)
+## Generating a Video
 
-Jason Cameron - https://github.com/JasonLovesDoggo (Maintainer)
+Once settings are configured, double-click **`run_bot.bat`** to generate a video.
 
-Simon (OpenSourceSimon) - https://github.com/OpenSourceSimon
+Or run manually:
 
-CallumIO (c.#6837) - https://github.com/CallumIO
+```sh
+py -3.11 main.py
+```
 
-Verq (Verq#2338) - https://github.com/CordlessCoder
+The bot will fetch a thread, capture screenshots, generate audio, and assemble the final MP4. Progress is shown in the terminal window. The finished video is saved to the `results/` folder and will appear in the GUI under **Videos**.
 
-LukaHietala (Pix.#0001) - https://github.com/LukaHietala
+---
 
-Freebiell (Freebie#3263) - https://github.com/FreebieII
+## Reconfiguring
 
-Aman Raza (electro199#8130) - https://github.com/electro199
+To change any setting, use the **Settings** page in the GUI and save again. Alternatively, open `config.toml` directly in a text editor delete the lines you want to reset and they will be prompted again on the next run.
 
-Cyteon (cyteon) - https://github.com/cyteon
+---
 
+## What Has Been Implemented
 
-## LICENSE
-[Roboto Fonts](https://fonts.google.com/specimen/Roboto/about) are licensed under [Apache License V2](https://www.apache.org/licenses/LICENSE-2.0)
+- Automated Reddit thread scraping via the official Reddit API
+- Browser-based screenshot capture of posts and comments
+- Multiple TTS voice platforms: TikTok, Google Translate, AWS Polly, Streamlabs Polly, ElevenLabs, OpenAI, and system voices
+- Randomised or manually specified thread selection
+- Choice of background video and background audio
+- Light, dark and transparent Reddit screenshot themes
+- NSFW post filtering
+- Duplicate video detection skips threads that have already been processed
+- Story mode for narrative-style subreddits
+- Thumbnail generation
+- AI-based thread similarity ranking
+- Configurable video resolution, zoom level, opacity and transitions
+- Full browser-based GUI for configuration and video management
+
+---
+
+## Troubleshooting
+
+**`ModuleNotFoundError`** Run `install.bat` again. A package did not install correctly.
+
+**`TemplateNotFound: index.html`** You ran `GUI.py` from the wrong directory. Always use `start.bat`, or `cd` into the project folder before running `py -3.11 GUI.py`.
+
+**pip timeouts during install** Your network is blocking the package server. Switch to a mobile hotspot and run `install.bat` again.
+
+**`spacy` or `torch` install errors** These packages are only needed for the optional AI similarity feature and are not included in `requirements.txt`. The bot works fully without them.
+
+**Videos not appearing in the GUI** Make sure `main.py` completed without errors. Check the `results/` folder directly to confirm the MP4 was created.
+
+---
+
+## License
+
+The Roboto fonts included in the `fonts/` folder are licensed under the Apache License 2.0.
